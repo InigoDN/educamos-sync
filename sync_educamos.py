@@ -2,6 +2,7 @@ import os
 import json
 import asyncio
 from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 from bs4 import BeautifulSoup
 from icalendar import Calendar, Event
 from playwright.async_api import async_playwright
@@ -11,6 +12,9 @@ USERNAME = os.environ["EDUCAMOS_USER"]
 PASSWORD = os.environ["EDUCAMOS_PASS"]
 ALUMNO_ID = os.environ.get("ALUMNO_ID", "f4b3b534-d4b9-41f1-ac90-b1a800bdeaa7")
 DB_FILE = "historico_tareas.json"
+
+TZ_MADRID = ZoneInfo("Europe/Madrid")
+TZ_UTC = ZoneInfo("UTC")
 
 def cargar_historico():
     if os.path.exists(DB_FILE):
@@ -42,7 +46,7 @@ async def main():
         print("Login completado.")
 
         # =====================================================================
-        # 1. GENERAR CALENDARIO DE EXÁMENES Y TAREAS (historico acumulativo)
+        # 1. GENERAR CALENDARIO DE EXÁMENES Y TAREAS (HISTÓRICO ACUMULATIVO)
         # =====================================================================
         hace_un_mes = (datetime.now() - timedelta(days=30)).strftime("%d/%m/%Y")
         fin_curso = (datetime.now() + timedelta(days=280)).strftime("%d/%m/%Y")
@@ -63,7 +67,10 @@ async def main():
         resp_tareas = await page.request.post(
             f"{COLEGIO_URL}/Home/ListadoTareas",
             form=payload,
-            headers={"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", "X-Requested-With": "XMLHttpRequest"}
+            headers={
+                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                "X-Requested-With": "XMLHttpRequest"
+            }
         )
         html_tareas = await resp_tareas.text()
         soup_tareas = BeautifulSoup(html_tareas, 'html.parser')
@@ -82,22 +89,22 @@ async def main():
         cal_examenes = Calendar()
         cal_examenes.add('prodid', '-//Sync Educamos Examenes//ES')
         cal_examenes.add('version', '2.0')
-        cal_examenes.add('x-wr-calname', 'Exámenes y Deberes')
+        cal_examenes.add('x-wr-calname', 'Examenes y Deberes')
 
         for uid, item in historico.items():
             try:
                 dt_evento = datetime.strptime(item["fecha"], "%d/%m/%Y").date()
                 event = Event()
                 event.add('uid', f"{uid}@educamos")
-                event.add('summary', f"📝 [{item['materia']}] {item['titulo']}")
+                event.add('summary', f"[{item['materia']}] {item['titulo']}")
                 event.add('dtstart', dt_evento)
-                event.add('dtend', dt_evento + timedelta(days=1))  # Todo el día con fin no-inclusivo
+                event.add('dtend', dt_evento + timedelta(days=1))
                 cal_examenes.add_component(event)
             except Exception:
                 continue
 
         # =====================================================================
-        # 2. GENERAR HORARIO ESCOLAR SEMANAL (Lunes a Viernes recurrente)
+        # 2. GENERAR HORARIO ESCOLAR SEMANAL (HORA LOCAL ESPAÑA)
         # =====================================================================
         print("Obteniendo horario escolar semanal...")
         cal_horario = Calendar()
@@ -105,12 +112,10 @@ async def main():
         cal_horario.add('version', '2.0')
         cal_horario.add('x-wr-calname', 'Horario Escolar')
 
-        # Buscamos el lunes de la semana actual
         hoy = datetime.now()
         lunes = hoy - timedelta(days=hoy.weekday())
-        fin_de_curso_dt = datetime(hoy.year if hoy.month < 7 else hoy.year + 1, 6, 25, 23, 59, 59)
+        fin_de_curso_dt = datetime(hoy.year if hoy.month < 7 else hoy.year + 1, 6, 25, 23, 59, 59, tzinfo=TZ_UTC)
 
-        # Consultamos lunes, martes, miércoles, jueves y viernes
         for i in range(5):
             dia = lunes + timedelta(days=i)
             dia_str = dia.strftime("%Y-%m-%d")
@@ -131,18 +136,17 @@ async def main():
                 profesor_tag = s.find('p', class_='nivel')
                 profesor = profesor_tag.get_text(strip=True) if profesor_tag else ""
 
-                # Fechas inicio y fin para el primer día
-                dt_ini = datetime.strptime(f"{dia.strftime('%d/%m/%Y')} {h_inicio}", "%d/%m/%Y %H:%M:%S")
-                dt_fin = datetime.strptime(f"{dia.strftime('%d/%m/%Y')} {h_fin}", "%d/%m/%Y %H:%M:%S")
+                # Asignación de zona horaria oficial Europe/Madrid
+                dt_ini = datetime.strptime(f"{dia.strftime('%d/%m/%Y')} {h_inicio}", "%d/%m/%Y %H:%M:%S").replace(tzinfo=TZ_MADRID)
+                dt_fin = datetime.strptime(f"{dia.strftime('%d/%m/%Y')} {h_fin}", "%d/%m/%Y %H:%M:%S").replace(tzinfo=TZ_MADRID)
 
                 ev = Event()
                 ev.add('uid', f"horario_{dia.weekday()}_{h_inicio}_{materia}@educamos".replace(" ", "_"))
-                ev.add('summary', f"🏫 {materia}")
+                ev.add('summary', materia)
                 if profesor:
                     ev.add('description', f"Profesor/a: {profesor}")
                 ev.add('dtstart', dt_ini)
                 ev.add('dtend', dt_fin)
-                # Recurrencia semanal hasta final de curso
                 ev.add('rrule', {'freq': 'weekly', 'until': fin_de_curso_dt})
                 cal_horario.add_component(ev)
 
@@ -153,17 +157,14 @@ async def main():
         # =====================================================================
         os.makedirs("./output", exist_ok=True)
 
-        # Guardamos examenes.ics (y agenda.ics para mantener compatibilidad)
         with open("./output/examenes.ics", "wb") as f:
             f.write(cal_examenes.to_ical())
         with open("./output/agenda.ics", "wb") as f:
             f.write(cal_examenes.to_ical())
-
-        # Guardamos horario.ics
         with open("./output/horario.ics", "wb") as f:
             f.write(cal_horario.to_ical())
 
-        print("¡Completado! Generados 'examenes.ics' y 'horario.ics'.")
+        print("Completado. Archivos generados correctamente sin emojis y con zona horaria corregida.")
 
 if __name__ == "__main__":
     asyncio.run(main())
