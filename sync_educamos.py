@@ -40,8 +40,9 @@ async def main():
 
         await page.fill('input[type="text"], input[name*="user" i]', USERNAME)
         await page.fill('input[type="password"]', PASSWORD)
-        await page.click('button[type="submit"], input[type="submit"]')
+        await page.locator('input[type="password"]').press("Enter")
         await page.wait_for_load_state("networkidle")
+        print("Login completado. URL actual:", page.url)
 
         # Consultar desde hace 30 días hasta final de curso (para captar cualquier rezagado)
         hace_un_mes = (datetime.now() - timedelta(days=30)).strftime("%d/%m/%Y")
