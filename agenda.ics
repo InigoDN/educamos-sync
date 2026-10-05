@@ -1,0 +1,29 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Sync Educamos Persistente//ES
+BEGIN:VEVENT
+SUMMARY:[Geografía e Historia] Europar Batasuna
+DTSTART;VALUE=DATE:20260921
+DTEND;VALUE=DATE:20260921
+UID:Geografía_e_Historia_Europar_Batasuna_21/09/2026@educamos
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[Geografía e Historia] Gizarte
+DTSTART;VALUE=DATE:20260925
+DTEND;VALUE=DATE:20260925
+UID:Geografía_e_Historia_Gizarte_25/09/2026@educamos
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[Geografía e Historia] Gizarte
+DTSTART;VALUE=DATE:20261001
+DTEND;VALUE=DATE:20261001
+UID:Geografía_e_Historia_Gizarte_01/10/2026@educamos
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[Física y Química] 1.Gaiaren azterketa / Examen 1º unidad
+DTSTART;VALUE=DATE:20261007
+DTEND;VALUE=DATE:20261007
+UID:Física_y_Química_1.Gaiaren_azterketa_/_Examen_1º_unidad_07/10/2026@
+ educamos
+END:VEVENT
+END:VCALENDAR
