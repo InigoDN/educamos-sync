@@ -1,0 +1,41 @@
+name: Sincronizar Educamos con Calendario
+
+on:
+  schedule:
+    # 05:00, 13:00 y 19:00 UTC (07:00, 15:00 y 21:00 en España peninsular)
+    - cron: '0 5,13,19 * * *'
+  workflow_dispatch: # Permite ejecutarlo a mano cuando quieras
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Instalar dependencias
+        run: |
+          pip install playwright beautifulsoup4 icalendar
+          playwright install --with-deps chromium
+
+      - name: Ejecutar script de sincronización
+        env:
+          EDUCAMOS_USER: ${{ secrets.EDUCAMOS_USER }}
+          EDUCAMOS_PASS: ${{ secrets.EDUCAMOS_PASS }}
+          ALUMNO_ID: ${{ secrets.ALUMNO_ID }}
+        run: python sync_educamos.py
+
+      - name: Publicar calendario en GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./output
