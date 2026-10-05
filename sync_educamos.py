@@ -4,7 +4,7 @@ import asyncio
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 from bs4 import BeautifulSoup
-from icalendar import Calendar, Event
+from icalendar import Calendar, Event, Alarm
 from playwright.async_api import async_playwright
 
 COLEGIO_URL = "https://sdeusto-salesianos-bilbao.educamos.com"
@@ -29,8 +29,17 @@ def guardar_historico(data):
     with open(DB_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
+def crear_alarma(mensaje):
+    """Crea una alarma sonora estándar para que suene en el móvil."""
+    alarma = Alarm()
+    alarma.add('action', 'DISPLAY')
+    alarma.add('description', mensaje)
+    alarma.add('trigger', timedelta(0))  # Suena en el minuto exacto del evento
+    return alarma
+
 async def main():
     historico = cargar_historico()
+    ahora = datetime.now(TZ_MADRID)
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
@@ -46,7 +55,7 @@ async def main():
         print("Login completado.")
 
         # =====================================================================
-        # 1. GENERAR HORARIO ESCOLAR Y MAPA DE HORAS POR MATERIA
+        # 1. HORARIO ESCOLAR Y MAPA DE HORAS
         # =====================================================================
         print("Obteniendo horario escolar semanal...")
         cal_horario = Calendar()
@@ -58,8 +67,6 @@ async def main():
         lunes = hoy - timedelta(days=hoy.weekday())
         fin_de_curso_dt = datetime(hoy.year if hoy.month < 7 else hoy.year + 1, 6, 25, 23, 59, 59, tzinfo=TZ_UTC)
 
-        # Diccionario para saber a qué hora es cada clase según el día de la semana
-        # Formato: (dia_semana_int, "nombre_materia_minusculas") -> ("08:05:00", "09:00:00")
         mapa_horas = {}
 
         for i in range(5):
@@ -82,11 +89,8 @@ async def main():
                 profesor_tag = s.find('p', class_='nivel')
                 profesor = profesor_tag.get_text(strip=True) if profesor_tag else ""
 
-                # Guardamos en el mapa para cruzarlo luego con los exámenes
-                # dia.weekday(): 0=Lunes, 1=Martes, 2=Miércoles, etc.
                 mapa_horas[(dia.weekday(), materia.strip().lower())] = (h_inicio, h_fin)
 
-                # Evento para el calendario de horario
                 dt_ini = datetime.strptime(f"{dia.strftime('%d/%m/%Y')} {h_inicio}", "%d/%m/%Y %H:%M:%S").replace(tzinfo=TZ_MADRID)
                 dt_fin = datetime.strptime(f"{dia.strftime('%d/%m/%Y')} {h_fin}", "%d/%m/%Y %H:%M:%S").replace(tzinfo=TZ_MADRID)
 
@@ -101,7 +105,7 @@ async def main():
                 cal_horario.add_component(ev)
 
         # =====================================================================
-        # 2. GENERAR CALENDARIO DE EXÁMENES (CRUZANDO CON LA HORA REAL DE CLASE)
+        # 2. EXÁMENES Y GENERACIÓN DE ALERTAS DE AVISO (DÍA D Y DÍA D+1)
         # =====================================================================
         hace_un_mes = (datetime.now() - timedelta(days=30)).strftime("%d/%m/%Y")
         fin_curso = (datetime.now() + timedelta(days=280)).strftime("%d/%m/%Y")
@@ -137,14 +141,26 @@ async def main():
                 titulo = cols[1].get_text(strip=True)
                 fecha_str = cols[2].get_text(strip=True)
                 uid = f"{materia}_{titulo}_{fecha_str}".replace(" ", "_")
-                historico[uid] = {"materia": materia, "titulo": titulo, "fecha": fecha_str}
+
+                # Si es un examen nuevo que nunca habíamos visto, registramos su fecha de detección
+                if uid not in historico:
+                    historico[uid] = {
+                        "materia": materia,
+                        "titulo": titulo,
+                        "fecha": fecha_str,
+                        "fecha_descubierto": ahora.strftime("%Y-%m-%d %H:%M:%S")
+                    }
+                else:
+                    # Mantenemos la fecha original en la que se descubrió por primera vez
+                    if "fecha_descubierto" not in historico[uid]:
+                        historico[uid]["fecha_descubierto"] = ahora.strftime("%Y-%m-%d %H:%M:%S")
 
         guardar_historico(historico)
 
         cal_examenes = Calendar()
         cal_examenes.add('prodid', '-//Sync Educamos Examenes//ES')
         cal_examenes.add('version', '2.0')
-        cal_examenes.add('x-wr-calname', 'Examenes y Deberes')
+        cal_examenes.add('x-wr-calname', 'Examenes y Avisos')
 
         for uid, item in historico.items():
             try:
@@ -152,27 +168,56 @@ async def main():
                 dia_sem = dt_dia.weekday()
                 materia_norm = item["materia"].strip().lower()
 
-                # Buscamos si tenemos la hora de esa asignatura en ese día de la semana
-                horas = mapa_horas.get((dia_sem, materia_norm))
-
+                # --- A. EVENTO OFICIAL DEL EXAMEN EN SU DÍA ---
                 event = Event()
                 event.add('uid', f"{uid}@educamos")
                 event.add('summary', f"[{item['materia']}] {item['titulo']}")
 
+                horas = mapa_horas.get((dia_sem, materia_norm))
                 if horas:
-                    # Le asignamos la hora real de la clase
                     h_ini_str, h_fin_str = horas
                     dt_start = datetime.strptime(f"{item['fecha']} {h_ini_str}", "%d/%m/%Y %H:%M:%S").replace(tzinfo=TZ_MADRID)
                     dt_end = datetime.strptime(f"{item['fecha']} {h_fin_str}", "%d/%m/%Y %H:%M:%S").replace(tzinfo=TZ_MADRID)
                     event.add('dtstart', dt_start)
                     event.add('dtend', dt_end)
                 else:
-                    # Si no encuentra hora fija, lo deja de día completo
                     dt_evento = dt_dia.date()
                     event.add('dtstart', dt_evento)
                     event.add('dtend', dt_evento + timedelta(days=1))
 
                 cal_examenes.add_component(event)
+
+                # --- B. ALERTAS DE AVISO (DÍA DEL ANUNCIO Y DÍA SIGUIENTE) ---
+                fecha_disc_str = item.get("fecha_descubierto")
+                if fecha_disc_str:
+                    dt_disc = datetime.strptime(fecha_disc_str, "%Y-%m-%d %H:%M:%S").replace(tzinfo=TZ_MADRID)
+
+                    # 1. Alerta el día del anuncio (solo si se descubrió antes de las 20:30 h para no despertar de noche)
+                    if dt_disc.hour < 20 or (dt_disc.hour == 20 and dt_disc.minute <= 30):
+                        aviso_1 = Event()
+                        aviso_1.add('uid', f"aviso_hoy_{uid}@educamos")
+                        aviso_1.add('summary', f"AVISO NUEVO EXAMEN: [{item['materia']}] para el {item['fecha']}")
+                        ini_1 = dt_disc.replace(hour=18, minute=30, second=0, microsecond=0)
+                        fin_1 = ini_1 + timedelta(minutes=30)
+                        aviso_1.add('dtstart', ini_1)
+                        aviso_1.add('dtend', fin_1)
+                        aviso_1.add_component(crear_alarma(f"Nuevo examen publicado: [{item['materia']}] el {item['fecha']}"))
+                        cal_examenes.add_component(aviso_1)
+
+                    # 2. Alerta al día siguiente del anuncio (a las 16:30, al salir del colegio)
+                    dt_manana = dt_disc.date() + timedelta(days=1)
+                    # Solo ponemos el aviso del día siguiente si el examen aún no ha pasado
+                    if dt_manana <= dt_dia.date():
+                        aviso_2 = Event()
+                        aviso_2.add('uid', f"aviso_manana_{uid}@educamos")
+                        aviso_2.add('summary', f"RECORDATORIO PLANIFICAR: Examen [{item['materia']}] ({item['fecha']})")
+                        ini_2 = datetime(dt_manana.year, dt_manana.month, dt_manana.day, 16, 30, 0, tzinfo=TZ_MADRID)
+                        fin_2 = ini_2 + timedelta(minutes=30)
+                        aviso_2.add('dtstart', ini_2)
+                        aviso_2.add('dtend', fin_2)
+                        aviso_2.add_component(crear_alarma(f"Recuerda planificar estudio para [{item['materia']}] ({item['fecha']})"))
+                        cal_examenes.add_component(aviso_2)
+
             except Exception:
                 continue
 
@@ -190,7 +235,7 @@ async def main():
         with open("./output/horario.ics", "wb") as f:
             f.write(cal_horario.to_ical())
 
-        print("¡Completado! Exámenes colocados en sus franjas horarias reales.")
+        print("Completado: Exámenes en hora de clase y alertas de día D y D+1 configuradas con alarmas sonoras.")
 
 if __name__ == "__main__":
     asyncio.run(main())
