@@ -46,7 +46,62 @@ async def main():
         print("Login completado.")
 
         # =====================================================================
-        # 1. GENERAR CALENDARIO DE EXÁMENES Y TAREAS (HISTÓRICO ACUMULATIVO)
+        # 1. GENERAR HORARIO ESCOLAR Y MAPA DE HORAS POR MATERIA
+        # =====================================================================
+        print("Obteniendo horario escolar semanal...")
+        cal_horario = Calendar()
+        cal_horario.add('prodid', '-//Sync Educamos Horario//ES')
+        cal_horario.add('version', '2.0')
+        cal_horario.add('x-wr-calname', 'Horario Escolar')
+
+        hoy = datetime.now()
+        lunes = hoy - timedelta(days=hoy.weekday())
+        fin_de_curso_dt = datetime(hoy.year if hoy.month < 7 else hoy.year + 1, 6, 25, 23, 59, 59, tzinfo=TZ_UTC)
+
+        # Diccionario para saber a qué hora es cada clase según el día de la semana
+        # Formato: (dia_semana_int, "nombre_materia_minusculas") -> ("08:05:00", "09:00:00")
+        mapa_horas = {}
+
+        for i in range(5):
+            dia = lunes + timedelta(days=i)
+            dia_str = dia.strftime("%Y-%m-%d")
+
+            url_horario = f"{COLEGIO_URL}/Home/ColumnaDerechaHorarioSemanal?fecha={dia_str}&mostrarEventosPersonales=true"
+            resp_h = await page.request.get(url_horario)
+            soup_h = BeautifulSoup(await resp_h.text(), 'html.parser')
+
+            sesiones = soup_h.find_all('div', class_='linea_agenda')
+            for s in sesiones:
+                h_inicio = s.get('data-horainicio')
+                h_fin = s.get('data-horafin')
+                if not h_inicio or not h_fin:
+                    continue
+
+                materia_tag = s.find('p', class_='materia')
+                materia = materia_tag.get_text(strip=True) if materia_tag else "Clase"
+                profesor_tag = s.find('p', class_='nivel')
+                profesor = profesor_tag.get_text(strip=True) if profesor_tag else ""
+
+                # Guardamos en el mapa para cruzarlo luego con los exámenes
+                # dia.weekday(): 0=Lunes, 1=Martes, 2=Miércoles, etc.
+                mapa_horas[(dia.weekday(), materia.strip().lower())] = (h_inicio, h_fin)
+
+                # Evento para el calendario de horario
+                dt_ini = datetime.strptime(f"{dia.strftime('%d/%m/%Y')} {h_inicio}", "%d/%m/%Y %H:%M:%S").replace(tzinfo=TZ_MADRID)
+                dt_fin = datetime.strptime(f"{dia.strftime('%d/%m/%Y')} {h_fin}", "%d/%m/%Y %H:%M:%S").replace(tzinfo=TZ_MADRID)
+
+                ev = Event()
+                ev.add('uid', f"horario_{dia.weekday()}_{h_inicio}_{materia}@educamos".replace(" ", "_"))
+                ev.add('summary', materia)
+                if profesor:
+                    ev.add('description', f"Profesor/a: {profesor}")
+                ev.add('dtstart', dt_ini)
+                ev.add('dtend', dt_fin)
+                ev.add('rrule', {'freq': 'weekly', 'until': fin_de_curso_dt})
+                cal_horario.add_component(ev)
+
+        # =====================================================================
+        # 2. GENERAR CALENDARIO DE EXÁMENES (CRUZANDO CON LA HORA REAL DE CLASE)
         # =====================================================================
         hace_un_mes = (datetime.now() - timedelta(days=30)).strftime("%d/%m/%Y")
         fin_curso = (datetime.now() + timedelta(days=280)).strftime("%d/%m/%Y")
@@ -93,67 +148,38 @@ async def main():
 
         for uid, item in historico.items():
             try:
-                dt_evento = datetime.strptime(item["fecha"], "%d/%m/%Y").date()
+                dt_dia = datetime.strptime(item["fecha"], "%d/%m/%Y")
+                dia_sem = dt_dia.weekday()
+                materia_norm = item["materia"].strip().lower()
+
+                # Buscamos si tenemos la hora de esa asignatura en ese día de la semana
+                horas = mapa_horas.get((dia_sem, materia_norm))
+
                 event = Event()
                 event.add('uid', f"{uid}@educamos")
                 event.add('summary', f"[{item['materia']}] {item['titulo']}")
-                event.add('dtstart', dt_evento)
-                event.add('dtend', dt_evento + timedelta(days=1))
+
+                if horas:
+                    # Le asignamos la hora real de la clase
+                    h_ini_str, h_fin_str = horas
+                    dt_start = datetime.strptime(f"{item['fecha']} {h_ini_str}", "%d/%m/%Y %H:%M:%S").replace(tzinfo=TZ_MADRID)
+                    dt_end = datetime.strptime(f"{item['fecha']} {h_fin_str}", "%d/%m/%Y %H:%M:%S").replace(tzinfo=TZ_MADRID)
+                    event.add('dtstart', dt_start)
+                    event.add('dtend', dt_end)
+                else:
+                    # Si no encuentra hora fija, lo deja de día completo
+                    dt_evento = dt_dia.date()
+                    event.add('dtstart', dt_evento)
+                    event.add('dtend', dt_evento + timedelta(days=1))
+
                 cal_examenes.add_component(event)
             except Exception:
                 continue
 
-        # =====================================================================
-        # 2. GENERAR HORARIO ESCOLAR SEMANAL (HORA LOCAL ESPAÑA)
-        # =====================================================================
-        print("Obteniendo horario escolar semanal...")
-        cal_horario = Calendar()
-        cal_horario.add('prodid', '-//Sync Educamos Horario//ES')
-        cal_horario.add('version', '2.0')
-        cal_horario.add('x-wr-calname', 'Horario Escolar')
-
-        hoy = datetime.now()
-        lunes = hoy - timedelta(days=hoy.weekday())
-        fin_de_curso_dt = datetime(hoy.year if hoy.month < 7 else hoy.year + 1, 6, 25, 23, 59, 59, tzinfo=TZ_UTC)
-
-        for i in range(5):
-            dia = lunes + timedelta(days=i)
-            dia_str = dia.strftime("%Y-%m-%d")
-
-            url_horario = f"{COLEGIO_URL}/Home/ColumnaDerechaHorarioSemanal?fecha={dia_str}&mostrarEventosPersonales=true"
-            resp_h = await page.request.get(url_horario)
-            soup_h = BeautifulSoup(await resp_h.text(), 'html.parser')
-
-            sesiones = soup_h.find_all('div', class_='linea_agenda')
-            for s in sesiones:
-                h_inicio = s.get('data-horainicio')
-                h_fin = s.get('data-horafin')
-                if not h_inicio or not h_fin:
-                    continue
-
-                materia_tag = s.find('p', class_='materia')
-                materia = materia_tag.get_text(strip=True) if materia_tag else "Clase"
-                profesor_tag = s.find('p', class_='nivel')
-                profesor = profesor_tag.get_text(strip=True) if profesor_tag else ""
-
-                # Asignación de zona horaria oficial Europe/Madrid
-                dt_ini = datetime.strptime(f"{dia.strftime('%d/%m/%Y')} {h_inicio}", "%d/%m/%Y %H:%M:%S").replace(tzinfo=TZ_MADRID)
-                dt_fin = datetime.strptime(f"{dia.strftime('%d/%m/%Y')} {h_fin}", "%d/%m/%Y %H:%M:%S").replace(tzinfo=TZ_MADRID)
-
-                ev = Event()
-                ev.add('uid', f"horario_{dia.weekday()}_{h_inicio}_{materia}@educamos".replace(" ", "_"))
-                ev.add('summary', materia)
-                if profesor:
-                    ev.add('description', f"Profesor/a: {profesor}")
-                ev.add('dtstart', dt_ini)
-                ev.add('dtend', dt_fin)
-                ev.add('rrule', {'freq': 'weekly', 'until': fin_de_curso_dt})
-                cal_horario.add_component(ev)
-
         await browser.close()
 
         # =====================================================================
-        # 3. EXPORTAR ARCHIVOS A ./output
+        # 3. EXPORTAR ARCHIVOS
         # =====================================================================
         os.makedirs("./output", exist_ok=True)
 
@@ -164,7 +190,7 @@ async def main():
         with open("./output/horario.ics", "wb") as f:
             f.write(cal_horario.to_ical())
 
-        print("Completado. Archivos generados correctamente sin emojis y con zona horaria corregida.")
+        print("¡Completado! Exámenes colocados en sus franjas horarias reales.")
 
 if __name__ == "__main__":
     asyncio.run(main())
