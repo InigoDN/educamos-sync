@@ -1,12 +1,23 @@
 BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Sync Educamos Examenes//ES
-X-WR-CALNAME:Examenes y Deberes
+X-WR-CALNAME:Examenes y Avisos
 BEGIN:VEVENT
 SUMMARY:[Geografía e Historia] Europar Batasuna
 DTSTART;TZID=Europe/Madrid:20260921T101000
 DTEND;TZID=Europe/Madrid:20260921T110500
 UID:Geografía_e_Historia_Europar_Batasuna_21/09/2026@educamos
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:AVISO NUEVO EXAMEN: [Geografía e Historia] para el 21/09/2026
+DTSTART;TZID=Europe/Madrid:20261006T183000
+DTEND;TZID=Europe/Madrid:20261006T190000
+UID:aviso_hoy_Geografía_e_Historia_Europar_Batasuna_21/09/2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Nuevo examen publicado: [Geografía e Historia] el 21/09/2026
+TRIGGER:P0D
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:[Geografía e Historia] Gizarte
@@ -15,10 +26,32 @@ DTEND;TZID=Europe/Madrid:20260925T131000
 UID:Geografía_e_Historia_Gizarte_25/09/2026@educamos
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:AVISO NUEVO EXAMEN: [Geografía e Historia] para el 25/09/2026
+DTSTART;TZID=Europe/Madrid:20261006T183000
+DTEND;TZID=Europe/Madrid:20261006T190000
+UID:aviso_hoy_Geografía_e_Historia_Gizarte_25/09/2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Nuevo examen publicado: [Geografía e Historia] el 25/09/2026
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:[Geografía e Historia] Gizarte
 DTSTART;TZID=Europe/Madrid:20261001T121500
 DTEND;TZID=Europe/Madrid:20261001T131000
 UID:Geografía_e_Historia_Gizarte_01/10/2026@educamos
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:AVISO NUEVO EXAMEN: [Geografía e Historia] para el 01/10/2026
+DTSTART;TZID=Europe/Madrid:20261006T183000
+DTEND;TZID=Europe/Madrid:20261006T190000
+UID:aviso_hoy_Geografía_e_Historia_Gizarte_01/10/2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Nuevo examen publicado: [Geografía e Historia] el 01/10/2026
+TRIGGER:P0D
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:[Física y Química] 1.Gaiaren azterketa / Examen 1º unidad
@@ -26,5 +59,30 @@ DTSTART;TZID=Europe/Madrid:20261007T080500
 DTEND;TZID=Europe/Madrid:20261007T090000
 UID:Física_y_Química_1.Gaiaren_azterketa_/_Examen_1º_unidad_07/10/2026@
  educamos
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:AVISO NUEVO EXAMEN: [Física y Química] para el 07/10/2026
+DTSTART;TZID=Europe/Madrid:20261006T183000
+DTEND;TZID=Europe/Madrid:20261006T190000
+UID:aviso_hoy_Física_y_Química_1.Gaiaren_azterketa_/_Examen_1º_unidad_0
+ 7/10/2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Nuevo examen publicado: [Física y Química] el 07/10/2026
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:RECORDATORIO PLANIFICAR: Examen [Física y Química] (07/10/2026)
+DTSTART;TZID=Europe/Madrid:20261007T163000
+DTEND;TZID=Europe/Madrid:20261007T170000
+UID:aviso_manana_Física_y_Química_1.Gaiaren_azterketa_/_Examen_1º_unida
+ d_07/10/2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Recuerda planificar estudio para [Física y Química] (07/10/2
+ 026)
+TRIGGER:P0D
+END:VALARM
 END:VEVENT
 END:VCALENDAR
