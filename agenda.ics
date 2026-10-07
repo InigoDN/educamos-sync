@@ -85,4 +85,70 @@ DESCRIPTION:Recuerda planificar estudio para [Física y Química] (07/10/2
 TRIGGER:P0D
 END:VALARM
 END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[Euskera y Literatura] 1. ikasegoera - GRAMATIKA PROBA (Indikatibo
+  osoa orain eta lehen)
+DTSTART;TZID=Europe/Madrid:20261016T080500
+DTEND;TZID=Europe/Madrid:20261016T090000
+UID:Euskera_y_Literatura_1._ikasegoera_-_GRAMATIKA_PROBA_(Indikatibo_osoa_
+ orain_eta_lehen)_16/10/2026@educamos
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:AVISO NUEVO EXAMEN: [Euskera y Literatura] para el 16/10/2026
+DTSTART;TZID=Europe/Madrid:20261007T183000
+DTEND;TZID=Europe/Madrid:20261007T190000
+UID:aviso_hoy_Euskera_y_Literatura_1._ikasegoera_-_GRAMATIKA_PROBA_(Indika
+ tibo_osoa_orain_eta_lehen)_16/10/2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Nuevo examen publicado: [Euskera y Literatura] el 16/10/2026
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:RECORDATORIO PLANIFICAR: Examen [Euskera y Literatura] (16/10/2026
+ )
+DTSTART;TZID=Europe/Madrid:20261008T163000
+DTEND;TZID=Europe/Madrid:20261008T170000
+UID:aviso_manana_Euskera_y_Literatura_1._ikasegoera_-_GRAMATIKA_PROBA_(Ind
+ ikatibo_osoa_orain_eta_lehen)_16/10/2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Recuerda planificar estudio para [Euskera y Literatura] (16/10
+ /2026)
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[Euskera y Literatura] Koadernoak batuko ditut.
+DTSTART;TZID=Europe/Madrid:20261016T080500
+DTEND;TZID=Europe/Madrid:20261016T090000
+UID:Euskera_y_Literatura_Koadernoak_batuko_ditut._16/10/2026@educamos
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:AVISO NUEVO EXAMEN: [Euskera y Literatura] para el 16/10/2026
+DTSTART;TZID=Europe/Madrid:20261007T183000
+DTEND;TZID=Europe/Madrid:20261007T190000
+UID:aviso_hoy_Euskera_y_Literatura_Koadernoak_batuko_ditut._16/10/2026@edu
+ camos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Nuevo examen publicado: [Euskera y Literatura] el 16/10/2026
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:RECORDATORIO PLANIFICAR: Examen [Euskera y Literatura] (16/10/2026
+ )
+DTSTART;TZID=Europe/Madrid:20261008T163000
+DTEND;TZID=Europe/Madrid:20261008T170000
+UID:aviso_manana_Euskera_y_Literatura_Koadernoak_batuko_ditut._16/10/2026@
+ educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Recuerda planificar estudio para [Euskera y Literatura] (16/10
+ /2026)
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
 END:VCALENDAR
