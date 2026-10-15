@@ -151,4 +151,72 @@ DESCRIPTION:Recuerda planificar estudio para [Euskera y Literatura] (16/10
 TRIGGER:P0D
 END:VALARM
 END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[Lengua extranjera: Inglés] UNIT 1 EXAM (1)
+DTSTART;TZID=Europe/Madrid:20261022T090000
+DTEND;TZID=Europe/Madrid:20261022T095500
+UID:Lengua_extranjera:_Inglés_UNIT_1_EXAM_(1)_22/10/2026@educamos
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:AVISO NUEVO EXAMEN: [Lengua extranjera: Inglés] para el 22/10/202
+ 6
+DTSTART;TZID=Europe/Madrid:20261015T183000
+DTEND;TZID=Europe/Madrid:20261015T190000
+UID:aviso_hoy_Lengua_extranjera:_Inglés_UNIT_1_EXAM_(1)_22/10/2026@educam
+ os
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Nuevo examen publicado: [Lengua extranjera: Inglés] el 22/10/
+ 2026
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:RECORDATORIO PLANIFICAR: Examen [Lengua extranjera: Inglés] (22/1
+ 0/2026)
+DTSTART;TZID=Europe/Madrid:20261016T163000
+DTEND;TZID=Europe/Madrid:20261016T170000
+UID:aviso_manana_Lengua_extranjera:_Inglés_UNIT_1_EXAM_(1)_22/10/2026@edu
+ camos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Recuerda planificar estudio para [Lengua extranjera: Inglés] 
+ (22/10/2026)
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[Lengua extranjera: Inglés] UNIT 1 EXAM (2)
+DTSTART;TZID=Europe/Madrid:20261026T131000
+DTEND;TZID=Europe/Madrid:20261026T140500
+UID:Lengua_extranjera:_Inglés_UNIT_1_EXAM_(2)_26/10/2026@educamos
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:AVISO NUEVO EXAMEN: [Lengua extranjera: Inglés] para el 26/10/202
+ 6
+DTSTART;TZID=Europe/Madrid:20261015T183000
+DTEND;TZID=Europe/Madrid:20261015T190000
+UID:aviso_hoy_Lengua_extranjera:_Inglés_UNIT_1_EXAM_(2)_26/10/2026@educam
+ os
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Nuevo examen publicado: [Lengua extranjera: Inglés] el 26/10/
+ 2026
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:RECORDATORIO PLANIFICAR: Examen [Lengua extranjera: Inglés] (26/1
+ 0/2026)
+DTSTART;TZID=Europe/Madrid:20261016T163000
+DTEND;TZID=Europe/Madrid:20261016T170000
+UID:aviso_manana_Lengua_extranjera:_Inglés_UNIT_1_EXAM_(2)_26/10/2026@edu
+ camos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Recuerda planificar estudio para [Lengua extranjera: Inglés] 
+ (26/10/2026)
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
 END:VCALENDAR
