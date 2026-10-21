@@ -219,4 +219,36 @@ DESCRIPTION:Recuerda planificar estudio para [Lengua extranjera: Inglés]
 TRIGGER:P0D
 END:VALARM
 END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[Física y Química] Control 1 de la tabla periódica
+DTSTART;TZID=Europe/Madrid:20261027T110500
+DTEND;TZID=Europe/Madrid:20261027T120000
+UID:Física_y_Química_Control_1_de_la_tabla_periódica_27/10/2026@educamo
+ s
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:AVISO NUEVO EXAMEN: [Física y Química] para el 27/10/2026
+DTSTART;TZID=Europe/Madrid:20261021T183000
+DTEND;TZID=Europe/Madrid:20261021T190000
+UID:aviso_hoy_Física_y_Química_Control_1_de_la_tabla_periódica_27/10/20
+ 26@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Nuevo examen publicado: [Física y Química] el 27/10/2026
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:RECORDATORIO PLANIFICAR: Examen [Física y Química] (27/10/2026)
+DTSTART;TZID=Europe/Madrid:20261022T163000
+DTEND;TZID=Europe/Madrid:20261022T170000
+UID:aviso_manana_Física_y_Química_Control_1_de_la_tabla_periódica_27/10
+ /2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Recuerda planificar estudio para [Física y Química] (27/10/2
+ 026)
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
 END:VCALENDAR
