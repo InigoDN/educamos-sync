@@ -251,4 +251,37 @@ DESCRIPTION:Recuerda planificar estudio para [Física y Química] (27/10/2
 TRIGGER:P0D
 END:VALARM
 END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[Euskera y Literatura] IDAZLANA: Klasean eta notarako.
+DTSTART;TZID=Europe/Madrid:20261030T080500
+DTEND;TZID=Europe/Madrid:20261030T090000
+UID:Euskera_y_Literatura_IDAZLANA:_Klasean_eta_notarako._30/10/2026@educam
+ os
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:AVISO NUEVO EXAMEN: [Euskera y Literatura] para el 30/10/2026
+DTSTART;TZID=Europe/Madrid:20261022T183000
+DTEND;TZID=Europe/Madrid:20261022T190000
+UID:aviso_hoy_Euskera_y_Literatura_IDAZLANA:_Klasean_eta_notarako._30/10/2
+ 026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Nuevo examen publicado: [Euskera y Literatura] el 30/10/2026
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:RECORDATORIO PLANIFICAR: Examen [Euskera y Literatura] (30/10/2026
+ )
+DTSTART;TZID=Europe/Madrid:20261023T163000
+DTEND;TZID=Europe/Madrid:20261023T170000
+UID:aviso_manana_Euskera_y_Literatura_IDAZLANA:_Klasean_eta_notarako._30/1
+ 0/2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Recuerda planificar estudio para [Euskera y Literatura] (30/10
+ /2026)
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
 END:VCALENDAR
