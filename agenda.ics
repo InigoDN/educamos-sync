@@ -284,4 +284,34 @@ DESCRIPTION:Recuerda planificar estudio para [Euskera y Literatura] (30/10
 TRIGGER:P0D
 END:VALARM
 END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[Geografía e Historia] Gizarte
+DTSTART;TZID=Europe/Madrid:20261102T101000
+DTEND;TZID=Europe/Madrid:20261102T110500
+UID:Geografía_e_Historia_Gizarte_02/11/2026@educamos
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:AVISO NUEVO EXAMEN: [Geografía e Historia] para el 02/11/2026
+DTSTART;TZID=Europe/Madrid:20261027T183000
+DTEND;TZID=Europe/Madrid:20261027T190000
+UID:aviso_hoy_Geografía_e_Historia_Gizarte_02/11/2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Nuevo examen publicado: [Geografía e Historia] el 02/11/2026
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:RECORDATORIO PLANIFICAR: Examen [Geografía e Historia] (02/11/202
+ 6)
+DTSTART;TZID=Europe/Madrid:20261028T163000
+DTEND;TZID=Europe/Madrid:20261028T170000
+UID:aviso_manana_Geografía_e_Historia_Gizarte_02/11/2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Recuerda planificar estudio para [Geografía e Historia] (02/1
+ 1/2026)
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
 END:VCALENDAR
