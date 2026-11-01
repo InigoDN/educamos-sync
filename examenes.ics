@@ -314,4 +314,37 @@ DESCRIPTION:Recuerda planificar estudio para [Geografía e Historia] (02/1
 TRIGGER:P0D
 END:VALARM
 END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[Física y Química] 2.Unitatearen azterketa/ Examen de la 2ª uni
+ dad
+DTSTART;TZID=Europe/Madrid:20261110T110500
+DTEND;TZID=Europe/Madrid:20261110T120000
+UID:Física_y_Química_2.Unitatearen_azterketa/_Examen_de_la_2ª_unidad_10
+ /11/2026@educamos
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:AVISO NUEVO EXAMEN: [Física y Química] para el 10/11/2026
+DTSTART;TZID=Europe/Madrid:20261101T183000
+DTEND;TZID=Europe/Madrid:20261101T190000
+UID:aviso_hoy_Física_y_Química_2.Unitatearen_azterketa/_Examen_de_la_2ª
+ _unidad_10/11/2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Nuevo examen publicado: [Física y Química] el 10/11/2026
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:RECORDATORIO PLANIFICAR: Examen [Física y Química] (10/11/2026)
+DTSTART;TZID=Europe/Madrid:20261102T163000
+DTEND;TZID=Europe/Madrid:20261102T170000
+UID:aviso_manana_Física_y_Química_2.Unitatearen_azterketa/_Examen_de_la_
+ 2ª_unidad_10/11/2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Recuerda planificar estudio para [Física y Química] (10/11/2
+ 026)
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
 END:VCALENDAR
