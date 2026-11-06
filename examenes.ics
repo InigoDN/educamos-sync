@@ -381,4 +381,39 @@ DESCRIPTION:Recuerda planificar estudio para [Tecnología y Digitalizació
 TRIGGER:P0D
 END:VALARM
 END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[Lengua extranjera: Inglés] IRREGULAR VERBS TEST (1)
+DTSTART;TZID=Europe/Madrid:20261112T090000
+DTEND;TZID=Europe/Madrid:20261112T095500
+UID:Lengua_extranjera:_Inglés_IRREGULAR_VERBS_TEST_(1)_12/11/2026@educamo
+ s
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:AVISO NUEVO EXAMEN: [Lengua extranjera: Inglés] para el 12/11/202
+ 6
+DTSTART;TZID=Europe/Madrid:20261106T183000
+DTEND;TZID=Europe/Madrid:20261106T190000
+UID:aviso_hoy_Lengua_extranjera:_Inglés_IRREGULAR_VERBS_TEST_(1)_12/11/20
+ 26@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Nuevo examen publicado: [Lengua extranjera: Inglés] el 12/11/
+ 2026
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:RECORDATORIO PLANIFICAR: Examen [Lengua extranjera: Inglés] (12/1
+ 1/2026)
+DTSTART;TZID=Europe/Madrid:20261107T163000
+DTEND;TZID=Europe/Madrid:20261107T170000
+UID:aviso_manana_Lengua_extranjera:_Inglés_IRREGULAR_VERBS_TEST_(1)_12/11
+ /2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Recuerda planificar estudio para [Lengua extranjera: Inglés] 
+ (12/11/2026)
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
 END:VCALENDAR
