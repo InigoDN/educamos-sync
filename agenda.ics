@@ -4,8 +4,8 @@ PRODID:-//Sync Educamos Examenes//ES
 X-WR-CALNAME:Examenes y Avisos
 BEGIN:VEVENT
 SUMMARY:[Geografía e Historia] Europar Batasuna
-DTSTART;TZID=Europe/Madrid:20260921T101000
-DTEND;TZID=Europe/Madrid:20260921T110500
+DTSTART;VALUE=DATE:20260921
+DTEND;VALUE=DATE:20260922
 UID:Geografía_e_Historia_Europar_Batasuna_21/09/2026@educamos
 END:VEVENT
 BEGIN:VEVENT
@@ -21,8 +21,8 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:[Geografía e Historia] Gizarte
-DTSTART;TZID=Europe/Madrid:20260925T121500
-DTEND;TZID=Europe/Madrid:20260925T131000
+DTSTART;VALUE=DATE:20260925
+DTEND;VALUE=DATE:20260926
 UID:Geografía_e_Historia_Gizarte_25/09/2026@educamos
 END:VEVENT
 BEGIN:VEVENT
@@ -38,8 +38,8 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:[Geografía e Historia] Gizarte
-DTSTART;TZID=Europe/Madrid:20261001T121500
-DTEND;TZID=Europe/Madrid:20261001T131000
+DTSTART;VALUE=DATE:20261001
+DTEND;VALUE=DATE:20261002
 UID:Geografía_e_Historia_Gizarte_01/10/2026@educamos
 END:VEVENT
 BEGIN:VEVENT
@@ -286,8 +286,8 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:[Geografía e Historia] Gizarte
-DTSTART;TZID=Europe/Madrid:20261102T101000
-DTEND;TZID=Europe/Madrid:20261102T110500
+DTSTART;VALUE=DATE:20261102
+DTEND;VALUE=DATE:20261103
 UID:Geografía_e_Historia_Gizarte_02/11/2026@educamos
 END:VEVENT
 BEGIN:VEVENT
@@ -484,8 +484,8 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:[Geografía e Historia] Gizarte
-DTSTART;TZID=Europe/Madrid:20261126T121500
-DTEND;TZID=Europe/Madrid:20261126T131000
+DTSTART;VALUE=DATE:20261126
+DTEND;VALUE=DATE:20261127
 UID:Geografía_e_Historia_Gizarte_26/11/2026@educamos
 END:VEVENT
 BEGIN:VEVENT
@@ -509,6 +509,86 @@ BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Recuerda planificar estudio para [Geografía e Historia] (26/1
  1/2026)
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[Geografía e HistoriaE] Gizarte
+DTSTART;TZID=Europe/Madrid:20261102T101000
+DTEND;TZID=Europe/Madrid:20261102T110500
+UID:Geografía_e_HistoriaE_Gizarte_02/11/2026@educamos
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:AVISO NUEVO EXAMEN: [Geografía e HistoriaE] para el 02/11/2026
+DTSTART;TZID=Europe/Madrid:20261117T183000
+DTEND;TZID=Europe/Madrid:20261117T190000
+UID:aviso_hoy_Geografía_e_HistoriaE_Gizarte_02/11/2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Nuevo examen publicado: [Geografía e HistoriaE] el 02/11/2026
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[Física y Química] Taularen 3.kontrola / Control 3 de la tabla p
+ eriódica
+DTSTART;TZID=Europe/Madrid:20261124T110500
+DTEND;TZID=Europe/Madrid:20261124T120000
+UID:Física_y_Química_Taularen_3.kontrola_/_Control_3_de_la_tabla_periód
+ ica_24/11/2026@educamos
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:AVISO NUEVO EXAMEN: [Física y Química] para el 24/11/2026
+DTSTART;TZID=Europe/Madrid:20261117T183000
+DTEND;TZID=Europe/Madrid:20261117T190000
+UID:aviso_hoy_Física_y_Química_Taularen_3.kontrola_/_Control_3_de_la_tab
+ la_periódica_24/11/2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Nuevo examen publicado: [Física y Química] el 24/11/2026
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:RECORDATORIO PLANIFICAR: Examen [Física y Química] (24/11/2026)
+DTSTART;TZID=Europe/Madrid:20261118T163000
+DTEND;TZID=Europe/Madrid:20261118T170000
+UID:aviso_manana_Física_y_Química_Taularen_3.kontrola_/_Control_3_de_la_
+ tabla_periódica_24/11/2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Recuerda planificar estudio para [Física y Química] (24/11/2
+ 026)
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[Geografía e HistoriaE] Gizarte
+DTSTART;TZID=Europe/Madrid:20261126T121500
+DTEND;TZID=Europe/Madrid:20261126T131000
+UID:Geografía_e_HistoriaE_Gizarte_26/11/2026@educamos
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:AVISO NUEVO EXAMEN: [Geografía e HistoriaE] para el 26/11/2026
+DTSTART;TZID=Europe/Madrid:20261117T183000
+DTEND;TZID=Europe/Madrid:20261117T190000
+UID:aviso_hoy_Geografía_e_HistoriaE_Gizarte_26/11/2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Nuevo examen publicado: [Geografía e HistoriaE] el 26/11/2026
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:RECORDATORIO PLANIFICAR: Examen [Geografía e HistoriaE] (26/11/20
+ 26)
+DTSTART;TZID=Europe/Madrid:20261118T163000
+DTEND;TZID=Europe/Madrid:20261118T170000
+UID:aviso_manana_Geografía_e_HistoriaE_Gizarte_26/11/2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Recuerda planificar estudio para [Geografía e HistoriaE] (26/
+ 11/2026)
 TRIGGER:P0D
 END:VALARM
 END:VEVENT

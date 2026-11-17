@@ -26,10 +26,10 @@ UID:horario_0_09:55:00_Recreo@educamos
 RRULE:FREQ=WEEKLY;UNTIL=20270625T235959Z
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Geografía e Historia
+SUMMARY:Geografía e HistoriaE
 DTSTART;TZID=Europe/Madrid:20261116T101000
 DTEND;TZID=Europe/Madrid:20261116T110500
-UID:horario_0_10:10:00_Geografía_e_Historia@educamos
+UID:horario_0_10:10:00_Geografía_e_HistoriaE@educamos
 RRULE:FREQ=WEEKLY;UNTIL=20270625T235959Z
 DESCRIPTION:Profesor/a: María Zuazaga Garzón
 END:VEVENT
@@ -235,10 +235,10 @@ UID:horario_3_12:00:00_Recreo@educamos
 RRULE:FREQ=WEEKLY;UNTIL=20270625T235959Z
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Geografía e Historia
+SUMMARY:Geografía e HistoriaE
 DTSTART;TZID=Europe/Madrid:20261119T121500
 DTEND;TZID=Europe/Madrid:20261119T131000
-UID:horario_3_12:15:00_Geografía_e_Historia@educamos
+UID:horario_3_12:15:00_Geografía_e_HistoriaE@educamos
 RRULE:FREQ=WEEKLY;UNTIL=20270625T235959Z
 DESCRIPTION:Profesor/a: María Zuazaga Garzón
 END:VEVENT
@@ -299,10 +299,10 @@ UID:horario_4_12:00:00_Recreo@educamos
 RRULE:FREQ=WEEKLY;UNTIL=20270625T235959Z
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Geografía e Historia
+SUMMARY:Geografía e HistoriaE
 DTSTART;TZID=Europe/Madrid:20261120T121500
 DTEND;TZID=Europe/Madrid:20261120T131000
-UID:horario_4_12:15:00_Geografía_e_Historia@educamos
+UID:horario_4_12:15:00_Geografía_e_HistoriaE@educamos
 RRULE:FREQ=WEEKLY;UNTIL=20270625T235959Z
 DESCRIPTION:Profesor/a: María Zuazaga Garzón
 END:VEVENT
