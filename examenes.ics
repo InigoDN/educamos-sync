@@ -624,4 +624,72 @@ DESCRIPTION:Recuerda planificar estudio para [Euskera y Literatura] (25/11
 TRIGGER:P0D
 END:VALARM
 END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[Lengua extranjera: Inglés] UNIT 2 EXAM
+DTSTART;TZID=Europe/Madrid:20261201T090000
+DTEND;TZID=Europe/Madrid:20261201T095500
+UID:Lengua_extranjera:_Inglés_UNIT_2_EXAM_01/12/2026@educamos
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:AVISO NUEVO EXAMEN: [Lengua extranjera: Inglés] para el 01/12/202
+ 6
+DTSTART;TZID=Europe/Madrid:20261124T183000
+DTEND;TZID=Europe/Madrid:20261124T190000
+UID:aviso_hoy_Lengua_extranjera:_Inglés_UNIT_2_EXAM_01/12/2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Nuevo examen publicado: [Lengua extranjera: Inglés] el 01/12/
+ 2026
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:RECORDATORIO PLANIFICAR: Examen [Lengua extranjera: Inglés] (01/1
+ 2/2026)
+DTSTART;TZID=Europe/Madrid:20261125T163000
+DTEND;TZID=Europe/Madrid:20261125T170000
+UID:aviso_manana_Lengua_extranjera:_Inglés_UNIT_2_EXAM_01/12/2026@educamo
+ s
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Recuerda planificar estudio para [Lengua extranjera: Inglés] 
+ (01/12/2026)
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[Lengua extranjera: Inglés] UNIT 2 PROJECT PRESENTATION
+DTSTART;TZID=Europe/Madrid:20261210T090000
+DTEND;TZID=Europe/Madrid:20261210T095500
+UID:Lengua_extranjera:_Inglés_UNIT_2_PROJECT_PRESENTATION_10/12/2026@educ
+ amos
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:AVISO NUEVO EXAMEN: [Lengua extranjera: Inglés] para el 10/12/202
+ 6
+DTSTART;TZID=Europe/Madrid:20261124T183000
+DTEND;TZID=Europe/Madrid:20261124T190000
+UID:aviso_hoy_Lengua_extranjera:_Inglés_UNIT_2_PROJECT_PRESENTATION_10/12
+ /2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Nuevo examen publicado: [Lengua extranjera: Inglés] el 10/12/
+ 2026
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:RECORDATORIO PLANIFICAR: Examen [Lengua extranjera: Inglés] (10/1
+ 2/2026)
+DTSTART;TZID=Europe/Madrid:20261125T163000
+DTEND;TZID=Europe/Madrid:20261125T170000
+UID:aviso_manana_Lengua_extranjera:_Inglés_UNIT_2_PROJECT_PRESENTATION_10
+ /12/2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Recuerda planificar estudio para [Lengua extranjera: Inglés] 
+ (10/12/2026)
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
 END:VCALENDAR
