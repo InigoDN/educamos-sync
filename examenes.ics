@@ -692,4 +692,37 @@ DESCRIPTION:Recuerda planificar estudio para [Lengua extranjera: Inglés]
 TRIGGER:P0D
 END:VALARM
 END:VEVENT
+BEGIN:VEVENT
+SUMMARY:[Física y Química] Taularen 4. kontrola / 4º control de la tabl
+ a
+DTSTART;TZID=Europe/Madrid:20261201T110500
+DTEND;TZID=Europe/Madrid:20261201T120000
+UID:Física_y_Química_Taularen_4._kontrola_/_4º_control_de_la_tabla_01/1
+ 2/2026@educamos
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:AVISO NUEVO EXAMEN: [Física y Química] para el 01/12/2026
+DTSTART;TZID=Europe/Madrid:20261125T183000
+DTEND;TZID=Europe/Madrid:20261125T190000
+UID:aviso_hoy_Física_y_Química_Taularen_4._kontrola_/_4º_control_de_la_
+ tabla_01/12/2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Nuevo examen publicado: [Física y Química] el 01/12/2026
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:RECORDATORIO PLANIFICAR: Examen [Física y Química] (01/12/2026)
+DTSTART;TZID=Europe/Madrid:20261126T163000
+DTEND;TZID=Europe/Madrid:20261126T170000
+UID:aviso_manana_Física_y_Química_Taularen_4._kontrola_/_4º_control_de_
+ la_tabla_01/12/2026@educamos
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Recuerda planificar estudio para [Física y Química] (01/12/2
+ 026)
+TRIGGER:P0D
+END:VALARM
+END:VEVENT
 END:VCALENDAR
